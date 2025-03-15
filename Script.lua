@@ -8,7 +8,7 @@ local flyButton = Instance.new("TextButton")
 local speedInput = Instance.new("TextBox") -- Поле для ввода скорости полета
 local speedhackInput = Instance.new("TextBox") -- Поле для ввода скорости Speedhack
 local speedhackButton = Instance.new("TextButton") -- Кнопка включения/выключения Speedhack
-local noclipButton = Instance.new("TextButton")
+
 
 -- Переменные для управления ESP, полетом, Speedhack и Noclip
 local espEnabled = false
@@ -18,7 +18,6 @@ local colorIndex = 1
 local flying = false
 local speed = 50 -- Скорость полета по умолчанию
 local speedhackSpeed = 16 -- Стандартная скорость передвижения
-local noclipEnabled = false
 local speedhackEnabled = false
 local flyConnection
 local bodyVelocity
@@ -41,7 +40,7 @@ screenGui.ResetOnSpawn = false -- Чтобы не сбрасывалось по�
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 -- Настройка фрейма (меню)
-frame.Size = UDim2.new(0, 400, 0, 300) -- Увеличили высоту меню
+frame.Size = UDim2.new(0, 400, 0, 270) -- Увеличили высоту меню
 frame.Position = UDim2.new(0.5, -200, 0.5, -250) -- Центр экрана
 frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40) -- Темно-серый цвет
 frame.BackgroundTransparency = 0.2 -- Полупрозрачность
@@ -112,8 +111,7 @@ speedhackInput.Parent = frame
 -- Настройка кнопки Speedhack
 styleButton(speedhackButton, "Enable Speedhack", UDim2.new(0, 10, 0, 220))
 
--- Настройка кнопки Noclip
-styleButton(noclipButton, "Enable Noclip", UDim2.new(0, 10, 0, 260))
+
 
 -- Функция включения/выключения ESP
 local function toggleESP()
@@ -261,20 +259,6 @@ local function toggleSpeedhack()
     end
 end
 
--- Функция включения/выключения Noclip
-local function toggleNoclip()
-    noclipEnabled = not noclipEnabled
-    noclipButton.Text = noclipEnabled and "Disable Noclip" or "Enable Noclip"
-
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-
-    if noclipEnabled then
-        character.Humanoid:ChangeState(11) -- Включаем Noclip
-    else
-        character.Humanoid:ChangeState(8) -- Возвращаем стандартное состояние
-    end
-end
 
 -- Функция для скрытия/показа меню
 local function toggleMenu()
@@ -287,7 +271,7 @@ espButton.MouseButton1Click:Connect(toggleESP)
 colorPicker.MouseButton1Click:Connect(changeESPColor)
 flyButton.MouseButton1Click:Connect(toggleFly)
 speedhackButton.MouseButton1Click:Connect(toggleSpeedhack)
-noclipButton.MouseButton1Click:Connect(toggleNoclip)
+
 
 -- Привязка функции к кнопке сворачивания
 toggleButton.MouseButton1Click:Connect(toggleMenu)
@@ -307,5 +291,7 @@ titleLabel.TextStrokeColor3 = Color3.fromRGB(0, 170, 255) -- Цвет обвод
 titleLabel.BackgroundTransparency = 1 -- Прозрачный фон
 titleLabel.BorderSizePixel = 0 -- Без обводки самого label
 titleLabel.Parent = frame -- Добавляем надпись как дочерний элемент фрейма
+
+
 
 
